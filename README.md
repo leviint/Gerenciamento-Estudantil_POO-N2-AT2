@@ -68,18 +68,9 @@ O programa permite o controle e gerenciamento de dados acadêmicos de umna insti
 
 ---
 
-<style>
-    .images{
-        display:flex;
-        justify-content: center;
-    }
-</style>
-
 <br>
-
-<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
           
-<div class="images">
+<div style="display:flex; justify-content:center;">
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original-wordmark.svg" width=10%/>
 
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" width=5%/>

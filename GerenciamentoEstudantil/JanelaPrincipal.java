@@ -7,11 +7,23 @@ public class JanelaPrincipal {
 
         JFrame frame = new JFrame("Gerenciamento Estudantil");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(724, 391);
+        frame.setSize(800, 400);
         frame.setResizable(false);
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBackground(Color.decode("#1e1e1e"));
+
+        JLabel titulo = new JLabel("Gerenciamento Estudantil");
+        titulo.setBounds(10, 7, 408, 52);
+        titulo.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 30));
+        titulo.setForeground(Color.decode("#D9D9D9"));
+        panel.add(titulo);
+   
+        JLabel selecioneBotao = new JLabel("Selecione o que você quer gerenciar:");
+        selecioneBotao.setBounds(11, 52, 300, 37);
+        selecioneBotao.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 14));
+        selecioneBotao.setForeground(Color.decode("#D9D9D9"));
+        panel.add(selecioneBotao);
    
         JButton menuAluno = new JButton("Aluno");
         menuAluno.setBounds(20, 107, 106, 29);
@@ -22,18 +34,6 @@ public class JanelaPrincipal {
         menuAluno.setFocusPainted(false);
         OnClickEventHelper.setOnClickColor(menuAluno, Color.decode("#232323"), Color.decode("#2e2e2e"));
         panel.add(menuAluno);
-   
-        JLabel titulo = new JLabel("Gerenciamento Estudantil");
-        titulo.setBounds(10, 7, 408, 52);
-        titulo.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 30));
-        titulo.setForeground(Color.decode("#D9D9D9"));
-        panel.add(titulo);
-   
-        JLabel selecioneBotao = new JLabel("Selecione o que você quer gerenciar:");
-        selecioneBotao.setBounds(11, 52, 199, 37);
-        selecioneBotao.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 14));
-        selecioneBotao.setForeground(Color.decode("#D9D9D9"));
-        panel.add(selecioneBotao);
    
         JButton menuProfessor = new JButton("Professor");
         menuProfessor.setBounds(20, 150, 106, 29);
