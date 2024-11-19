@@ -1,4 +1,4 @@
-package helper_classes;
+package menus.helper_classes;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;

@@ -1,6 +1,7 @@
-import helper_classes.*;
+package menus;
 import java.awt.Color;
 import javax.swing.*;
+import menus.helper_classes.*;
 
 public class JanelaPrincipal {
     public static void main(String[] args) {
