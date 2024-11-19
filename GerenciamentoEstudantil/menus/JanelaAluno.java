@@ -4,7 +4,7 @@ import java.awt.Color;
 import javax.swing.*;
 import menus.helper_classes.*;
 
-public class JanelaAluno {
+public class JanelaAluno { //extends Janela
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Aluno");
