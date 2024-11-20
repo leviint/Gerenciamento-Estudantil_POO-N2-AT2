@@ -13,7 +13,7 @@ public class ConnectionFactory {
     //Variável da password
     private static final String PASSWORD = "";  // Deixei o campo password como vazio, mas caso houver password, alterar
 
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/GerenciamentoEstudantil";  // Coloquei a porta 3306, porque geralmente é a padrão, mudar caso usar uma diferente
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/gerenciamentoestudantil";  // Coloquei a porta 3306, porque geralmente é a padrão, mudar caso usar uma diferente
 
     // Método responsável por fazer a conexão com o BD
     public static Connection createConnectionToMySql() throws Exception {

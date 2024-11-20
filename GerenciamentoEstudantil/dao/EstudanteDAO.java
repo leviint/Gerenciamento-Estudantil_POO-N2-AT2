@@ -3,10 +3,7 @@ package dao;
 import factory.ConnectionFactory;
 import models.Estudante;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /*
 Essas classes desse package são responsáveis por adaptar nossas classes Javas para se moldarem
@@ -26,7 +23,7 @@ public class EstudanteDAO {
         try {
             conn = ConnectionFactory.createConnectionToMySql();
 
-            pstmPessoa = (PreparedStatement) conn.prepareStatement(sqlPessoa); // Atribui o objeto à conexão conn criada acima
+            pstmPessoa = (PreparedStatement) conn.prepareStatement(sqlPessoa, Statement.RETURN_GENERATED_KEYS); // Atribui o objeto à conexão conn criada acima
 
             pstmPessoa.setString(1, estudante.getNome());
             pstmPessoa.setInt(2, estudante.getIdade());

@@ -3,10 +3,7 @@ package dao;
 import factory.ConnectionFactory;
 import models.Professor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ProfessorDAO {
     public void save(Professor professor) {
@@ -23,7 +20,7 @@ public class ProfessorDAO {
         try {
             conn = ConnectionFactory.createConnectionToMySql();
 
-            pstmPessoa = (PreparedStatement) conn.prepareStatement(sqlPessoa);
+            pstmPessoa = (PreparedStatement) conn.prepareStatement(sqlPessoa, Statement.RETURN_GENERATED_KEYS);
             pstmPessoa.setString(1, professor.getNome());
             pstmPessoa.setInt(2, professor.getIdade());
             pstmPessoa.setString(3, "Professor");
