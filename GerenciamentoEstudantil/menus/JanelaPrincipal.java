@@ -37,7 +37,7 @@ public class JanelaPrincipal {
         OnClickEventHelper.setOnClickColor(menuAluno, Color.decode("#232323"), Color.decode("#2e2e2e"));
         panel.add(menuAluno);
    
-        JButton menuProfessor = new JButton("models.Professor");
+        JButton menuProfessor = new JButton("Professor");
         menuProfessor.setBounds(20, 150, 106, 29);
         menuProfessor.setBackground(Color.decode("#2e2e2e"));
         menuProfessor.setForeground(Color.decode("#D9D9D9"));

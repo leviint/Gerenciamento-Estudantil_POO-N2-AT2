@@ -23,7 +23,7 @@ O programa permite o controle e gerenciamento de dados acadêmicos de umna insti
                 - Excluir
             - 🟡Sair
 
-        - 🟣models.Professor
+        - 🟣Professor
             - 🟡Cadastrar
                 - Nome
                 - Especialidade

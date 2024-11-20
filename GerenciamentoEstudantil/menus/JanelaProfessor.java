@@ -7,7 +7,7 @@ import menus.helper_classes.*;
 public class JanelaProfessor { //extends Janela 
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("models.Professor");
+        JFrame frame = new JFrame("Professor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 420);
         frame.setResizable(false);
@@ -15,7 +15,7 @@ public class JanelaProfessor { //extends Janela
         panel.setLayout(null);
         panel.setBackground(Color.decode("#1e1e1e"));
 
-        JLabel tituloProfessor = new JLabel("models.Professor");
+        JLabel tituloProfessor = new JLabel("Professor");
         tituloProfessor.setBounds(27, 14, 249, 45);
         tituloProfessor.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 30));
         tituloProfessor.setForeground(Color.decode("#D9D9D9"));
