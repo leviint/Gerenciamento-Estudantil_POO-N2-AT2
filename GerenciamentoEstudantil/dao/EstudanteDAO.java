@@ -49,6 +49,20 @@ public class EstudanteDAO {
             System.out.println("Estudante adicionado com sucesso!");
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar estudante: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmEstudante != null) {
+                    pstmEstudante.close();
+                }
+                if (pstmPessoa != null) {
+                    pstmPessoa.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
