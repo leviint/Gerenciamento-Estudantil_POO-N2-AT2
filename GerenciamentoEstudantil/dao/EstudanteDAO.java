@@ -51,4 +51,103 @@ public class EstudanteDAO {
             throw new RuntimeException("Erro ao salvar estudante: " + e.getMessage());
         }
     }
+
+    public void deleteByID(int id) {
+        String sqlPessoa = "DELETE FROM pessoa WHERE id = ?";
+        String sqlEstudante = "DELETE FROM estudante where id = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmPessoa = null;
+        PreparedStatement pstmEstudante = null;
+
+        try {
+            conn = ConnectionFactory.createConnectionToMySql();
+
+            pstmEstudante = (PreparedStatement) conn.prepareStatement(sqlEstudante);
+
+            pstmEstudante.setInt(1, id);
+
+            pstmEstudante.execute();
+
+            pstmPessoa = conn.prepareStatement(sqlPessoa);
+
+            pstmPessoa.setInt(1, id);
+
+            pstmPessoa.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmEstudante != null) {
+                    pstmEstudante.close();
+                }
+                if (pstmPessoa != null) {
+                    pstmPessoa.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("Estudante deletado com sucesso!");
+        }
+    }
+
+    public void update(Estudante estudante) {
+        String sqlPessoa = "UPDATE pessoa SET nome = ?, idade = ? WHERE id = ?";
+        String sqlEstudante = "UPDATE estudante SET matricula = ? WHERE id = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmPessoa = null;
+        PreparedStatement pstmEstudante = null;
+
+        try {
+            conn = ConnectionFactory.createConnectionToMySql();
+
+            conn.setAutoCommit(false);
+
+            pstmPessoa = (PreparedStatement) conn.prepareStatement(sqlPessoa);
+
+            pstmPessoa.setString(1, estudante.getNome());
+            pstmPessoa.setInt(2, estudante.getIdade());
+            pstmPessoa.setInt(3, estudante.getId());
+
+            pstmPessoa.executeUpdate();
+
+            pstmEstudante = (PreparedStatement) conn.prepareStatement(sqlEstudante);
+
+            pstmEstudante.setString(1, estudante.getMatricula());
+            pstmEstudante.setInt(2, estudante.getId());
+
+            pstmEstudante.executeUpdate();
+
+            conn.commit();
+
+            System.out.println("Estudante atualizado com sucesso!");
+        } catch (Exception e) {
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmPessoa != null) {
+                    pstmPessoa.close();
+                }
+                if (pstmEstudante != null) {
+                    pstmEstudante.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
