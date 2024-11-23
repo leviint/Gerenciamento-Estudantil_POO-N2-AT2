@@ -5,6 +5,8 @@ import models.Estudante;
 import models.Professor;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfessorDAO {
     public void save(Professor professor) {
@@ -144,5 +146,52 @@ public class ProfessorDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Professor> getProfessor() {  /*Esse método retorna um Array List de Estudantes cadastrados no BD*/
+        String sql = "SELECT pf.especialidade, p.nome, p.idade " +
+                "FROM professor pf " +
+                "INNER JOIN pessoa p ON pf.id = p.id";
+        List<Professor> professores = new ArrayList<>();
+
+
+        Connection conn = null;
+        PreparedStatement pstm = null;
+
+        ResultSet rst = null; // Classe que irá recuperar os dados do banco ***SELECT***
+
+        try {
+            conn = ConnectionFactory.createConnectionToMySql();
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+
+            rst = pstm.executeQuery();
+
+            while (rst.next()) {
+                Professor pf = new Professor();
+
+                pf.setEspecialidade(rst.getString("matricula"));
+                pf.setNome(rst.getString("nome"));
+                pf.setIdade(rst.getInt("idade"));
+
+                professores.add(pf);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rst != null) {
+                    rst.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return professores;
     }
 }

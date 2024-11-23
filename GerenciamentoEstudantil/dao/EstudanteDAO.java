@@ -4,6 +4,9 @@ import factory.ConnectionFactory;
 import models.Estudante;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /*
 Essas classes desse package são responsáveis por adaptar nossas classes Javas para se moldarem
@@ -163,5 +166,52 @@ public class EstudanteDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Estudante> getEstudantes() {  /*Esse método retorna um Array List de Estudantes cadastrados no BD*/
+        String sql = "SELECT e.matricula, p.nome, p.idade " +
+                "FROM estudante e " +
+                "INNER JOIN pessoa p ON e.id = p.id";
+        List<Estudante> estudantes = new ArrayList<>();
+
+
+        Connection conn = null;
+        PreparedStatement pstm = null;
+
+        ResultSet rst = null; // Classe que irá recuperar os dados do banco ***SELECT***
+
+        try {
+            conn = ConnectionFactory.createConnectionToMySql();
+            pstm = (PreparedStatement) conn.prepareStatement(sql);
+
+            rst = pstm.executeQuery();
+
+            while (rst.next()) {
+                Estudante e = new Estudante();
+
+                e.setMatricula(rst.getString("matricula"));
+                e.setNome(rst.getString("nome"));
+                e.setIdade(rst.getInt("idade"));
+
+                estudantes.add(e);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rst != null) {
+                    rst.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return estudantes;
     }
 }
