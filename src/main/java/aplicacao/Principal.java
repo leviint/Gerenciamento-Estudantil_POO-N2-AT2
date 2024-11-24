@@ -4,6 +4,7 @@ import dao.EstudanteDAO;
 import dao.ProfessorDAO;
 import models.Estudante;
 import models.Professor;
+import menus.JanelaAluno;
 
 public class Principal {
     public static void main(String[] args) {
@@ -32,6 +33,8 @@ public class Principal {
             e.exibirDados();
             System.out.println("------------------------------\n");
         };
+
+
 
     }
 }
