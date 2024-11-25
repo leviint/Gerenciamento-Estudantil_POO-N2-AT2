@@ -1,74 +1,70 @@
 package menus;
 
-import java.awt.Color;
+import java.awt.*;
 import javax.swing.*;
-import menus.helper_classes.*;
+import menus.aluno.MenuAluno;
+import menus.curso.MenuCurso;
+import menus.professor.MenuProfessor;
+import menus.relatorio.MenuRelatorio;
 
-public class JanelaPrincipal {
+public class JanelaPrincipal{
     public static void main(String[] args) {
-
         JFrame frame = new JFrame("Gerenciamento Estudantil");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 400);
-        frame.setResizable(false);
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
-        panel.setBackground(Color.decode("#1e1e1e"));
+        frame.setSize(400, 300);
 
-        JLabel titulo = new JLabel("Gerenciamento Estudantil");
-        titulo.setBounds(10, 7, 408, 52);
-        titulo.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 30));
-        titulo.setForeground(Color.decode("#D9D9D9"));
-        panel.add(titulo);
-   
-        JLabel selecioneBotao = new JLabel("Selecione o que você quer gerenciar:");
-        selecioneBotao.setBounds(11, 52, 300, 37);
-        selecioneBotao.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 14));
-        selecioneBotao.setForeground(Color.decode("#D9D9D9"));
-        panel.add(selecioneBotao);
-   
-        JButton menuAluno = new JButton("Aluno");
-        menuAluno.setBounds(20, 107, 106, 29);
-        menuAluno.setBackground(Color.decode("#2e2e2e"));
-        menuAluno.setForeground(Color.decode("#D9D9D9"));
-        menuAluno.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 14));
-        menuAluno.setBorder(new RoundedBorder(4, Color.decode("#979797"), 1));
-        menuAluno.setFocusPainted(false);
-        OnClickEventHelper.setOnClickColor(menuAluno, Color.decode("#232323"), Color.decode("#2e2e2e"));
-        panel.add(menuAluno);
-   
-        JButton menuProfessor = new JButton("Professor");
-        menuProfessor.setBounds(20, 150, 106, 29);
-        menuProfessor.setBackground(Color.decode("#2e2e2e"));
-        menuProfessor.setForeground(Color.decode("#D9D9D9"));
-        menuProfessor.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 14));
-        menuProfessor.setBorder(new RoundedBorder(4, Color.decode("#979797"), 1));
-        menuProfessor.setFocusPainted(false);
-        OnClickEventHelper.setOnClickColor(menuProfessor, Color.decode("#232323"), Color.decode("#2e2e2e"));
-        panel.add(menuProfessor);
-   
-        JButton menuCurso = new JButton("Curso");
-        menuCurso.setBounds(20, 190, 106, 29);
-        menuCurso.setBackground(Color.decode("#2e2e2e"));
-        menuCurso.setForeground(Color.decode("#D9D9D9"));
-        menuCurso.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 14));
-        menuCurso.setBorder(new RoundedBorder(4, Color.decode("#979797"), 1));
-        menuCurso.setFocusPainted(false);
-        OnClickEventHelper.setOnClickColor(menuCurso, Color.decode("#232323"), Color.decode("#2e2e2e"));
-        panel.add(menuCurso);
-   
-        JButton botaoSair = new JButton("Sair");
-        botaoSair.setBounds(661, 10, 50, 30);
-        botaoSair.setBackground(Color.decode("#2e2e2e"));
-        botaoSair.setForeground(Color.decode("#D9D9D9"));
-        botaoSair.setFont(CustomFontLoader.loadFont("./fonts/Lato.ttf", 14));
-        botaoSair.setBorder(new RoundedBorder(4, Color.decode("#979797"), 1));
-        botaoSair.setFocusPainted(false);
-        OnClickEventHelper.setOnClickColor(botaoSair, Color.decode("#232323"), Color.decode("#2e2e2e"));
-        panel.add(botaoSair);
-   
-        frame.add(panel);
+        frame.setLocation(700, 350);
+        
+        // Painel
+        JPanel painel = new JPanel();
+        painel.setLayout(null);
+        painel.setBackground(new Color(102, 113, 117));
+
+        // Fonte
+        Font fonte = new Font("Arial", Font.BOLD, 20);
+
+        JLabel label = new JLabel("Gerenciamento Estudantil");
+        JLabel label2 = new JLabel("Menu Principal");
+        JButton btnAluno = new JButton("Gerenciar Alunos");
+        JButton btnProfessor = new JButton("Gerenciar Professores");
+        JButton btnCurso = new JButton("Gerenciar Cursos");
+        JButton btnRelatorio = new JButton("Gerar Relatório");
+        JButton btnSair = new JButton("Sair");
+
+        // Estilização
+        label.setFont(fonte);
+        label.setForeground(new Color(255,255,255));
+        label2.setForeground(new Color(255,255,255));
+
+        // Ação ao apertar os botões
+        btnAluno.addActionListener(_ -> new MenuAluno(frame).exibir());
+        btnProfessor.addActionListener(_ -> new MenuProfessor(frame).exibir());
+        btnCurso.addActionListener(_ -> new MenuCurso(frame).exibir());
+        btnRelatorio.addActionListener(_ -> new MenuRelatorio(frame).exibir());
+        btnSair.addActionListener(_ -> System.exit(0));
+
+
+        // Posição dos botões - x, y, largura, altura
+        label.setBounds(25, 0, 300, 30);
+        label2.setBounds(25, 25, 175, 30);
+        btnAluno.setBounds(25, 50, 175, 30);
+        btnProfessor.setBounds(25, 100, 175, 30);
+        btnCurso.setBounds(25, 150, 175, 30);
+        btnRelatorio.setBounds(25, 200, 175, 30);
+        btnSair.setBounds(250, 225, 75, 30);
+
+        // Adicionar os botões no menu
+        painel.add(label);
+        painel.add(label2);
+        painel.add(btnAluno);
+        painel.add(btnProfessor);
+        painel.add(btnCurso);
+        painel.add(btnRelatorio);
+        painel.add(btnSair);
+
+        frame.add(painel);
         frame.setVisible(true);
-   
+        frame.setResizable(false);
     }
 }
+
