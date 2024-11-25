@@ -20,8 +20,8 @@ public class MenuAluno extends MenuBase {
             () -> new AlunoCadastro(frame).exibir());
 
 
-        // adicionarBotao(new JButton("Consultar Aluno"), 25, 100, 200, 30, 
-        //     () -> new AlunoConsulta(frame).exibir());
+        adicionarBotao(new JButton("Consultar Aluno"), 25, 100, 200, 30, 
+            () -> new AlunoConsulta(frame).exibir());
 
         adicionarBotao(new JButton("Voltar"), 250, 225, 75, 30, this::fechar);
     }
