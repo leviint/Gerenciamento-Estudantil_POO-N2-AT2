@@ -43,11 +43,12 @@ public abstract class MenuBase {
         painel.add(campo);
     }
 
-    protected void adicionarTexto(JLabel texto, int x, int y, int largura, int altura, int tamanhoFonte){
+    protected void adicionarTexto(String texto, int x, int y, int largura, int altura, int tamanhoFonte){
+        JLabel label = new JLabel(texto);
         Font fonte = new Font("Arial", Font.BOLD, tamanhoFonte);
-        texto.setFont(fonte);
-        texto.setForeground(Color.WHITE);
-        painel.add(texto);
+        label.setFont(fonte);
+        label.setForeground(Color.WHITE);
+        painel.add(label);
     }
 
     public void exibir() {
