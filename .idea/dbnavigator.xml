@@ -6,7 +6,7 @@
   </component>
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -30,12 +30,17 @@
     <connection id="7d393304-dd9e-4bdb-88a3-0e366ba23424" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="7d393304-dd9e-4bdb-88a3-0e366ba23424" dataset="gerenciamentoestudantil.curso" active-filter-id="EMPTY_FILTER">
+      <filter id="49881fa5-f54d-4c13-b2a1-68b12c9eec47" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
     <filter-actions connection-id="7d393304-dd9e-4bdb-88a3-0e366ba23424" dataset="gerenciamentoestudantil.estudante" active-filter-id="e4b544f6-98f0-4676-99a5-9badb340c059">
       <filter id="e4b544f6-98f0-4676-99a5-9badb340c059" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
-    <filter-actions connection-id="7d393304-dd9e-4bdb-88a3-0e366ba23424" dataset="gerenciamentoestudantil.professor" active-filter-id="2d7ed4aa-3a15-430a-b00d-16bfdcbd4ad3">
+    <filter-actions connection-id="7d393304-dd9e-4bdb-88a3-0e366ba23424" dataset="gerenciamentoestudantil.professor" active-filter-id="">
       <filter id="2d7ed4aa-3a15-430a-b00d-16bfdcbd4ad3" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="=" value="" active="true" />
       </filter>
@@ -536,5 +541,9 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
+    <execution-variable-types />
   </component>
 </project>

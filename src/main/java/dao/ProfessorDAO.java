@@ -49,6 +49,49 @@ public class ProfessorDAO {
         }
     }
 
+    public Professor getProfessorById(int id) {
+        String sql = "SELECT * FROM Pessoa p INNER JOIN Professor prof ON p.id = prof.id WHERE p.id = ?";
+        Professor professor = null;
+
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        ResultSet rst = null;
+
+        try {
+            conn = ConnectionFactory.createConnectionToMySql();
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, id);
+
+            rst = pstm.executeQuery();
+
+            if (rst.next()) {
+                professor = new Professor();
+                professor.setId(rst.getInt("id"));
+                professor.setNome(rst.getString("nome"));
+                professor.setIdade(rst.getInt("idade"));
+                professor.setEspecialidade(rst.getString("especialidade"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rst != null) {
+                    rst.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return professor;
+    }
+
+
     public void deleteByID(int id) {
         String sqlPessoa = "DELETE FROM pessoa WHERE id = ?";
         String sqlProfessor = "DELETE FROM professor where id = ?";

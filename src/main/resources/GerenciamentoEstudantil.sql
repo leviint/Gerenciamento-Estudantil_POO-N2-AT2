@@ -24,14 +24,14 @@ CREATE TABLE Curso (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nomeCurso VARCHAR(100) UNIQUE NOT NULL,
     cargaHoraria INT NOT NULL,
-    professor_id INT NOT NULL,
+    professor_id INT UNIQUE NULL,
     FOREIGN KEY (professor_id) REFERENCES Professor(id)
 );
 
 CREATE TABLE Matriculas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     estudante_id INT NOT NULL,
-    curso_id INT NOT NULL,
+    curso_id INT NULL,
     FOREIGN KEY (estudante_id) REFERENCES Estudante(id) ON DELETE CASCADE,
     FOREIGN KEY (curso_id) REFERENCES Curso(id) ON DELETE CASCADE,
     UNIQUE(estudante_id, curso_id)
