@@ -17,10 +17,10 @@ public class MenuCurso extends MenuBase {
         configurarEstilo(label, subtitulo);
 
         adicionarBotao(new JButton("Cadastrar Curso"), 25, 50, 200, 30, 
-            () -> { /* Implementar ação de cadastro */ });
+            () -> new CursoCadastro(frame).exibir());
 
         adicionarBotao(new JButton("Consultar Curso"), 25, 100, 200, 30, 
-            () -> { /* Implementar ação de consulta */ });
+            () -> new CursoConsulta(frame).exibir());
 
         adicionarBotao(new JButton("Voltar"), 250, 225, 75, 30, this::fechar);
     }
