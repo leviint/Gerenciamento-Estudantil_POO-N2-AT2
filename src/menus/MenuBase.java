@@ -37,6 +37,19 @@ public abstract class MenuBase {
         painel.add(botao);
     }
 
+    protected void adicionarCampo(JTextField campo, int x, int y, int largura, int altura, String texto){
+        campo.setBounds(x, y, largura, altura);
+        campo.setText(texto);
+        painel.add(campo);
+    }
+
+    protected void adicionarTexto(JLabel texto, int x, int y, int largura, int altura, int tamanhoFonte){
+        Font fonte = new Font("Arial", Font.BOLD, tamanhoFonte);
+        texto.setFont(fonte);
+        texto.setForeground(Color.WHITE);
+        painel.add(texto);
+    }
+
     public void exibir() {
         frame.setVisible(true);
     }

@@ -1,8 +1,8 @@
 package menus.aluno;
 
-import java.awt.*;
 import javax.swing.*;
+import menus.MenuBase;
 
-public class AlunoCadastro {
-
+public class AlunoCadastro extends MenuBase{
+    
 }

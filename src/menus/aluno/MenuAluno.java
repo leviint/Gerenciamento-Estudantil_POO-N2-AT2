@@ -17,10 +17,10 @@ public class MenuAluno extends MenuBase {
         configurarEstilo(label, subtitulo);
 
         adicionarBotao(new JButton("Cadastrar Aluno"), 25, 50, 200, 30, 
-            () -> new MenuAluno(frame).exibir());
+            () -> { /* Implementar ação de cadastro */ });
 
         adicionarBotao(new JButton("Consultar Aluno"), 25, 100, 200, 30, 
-            () -> new MenuAluno(frame).exibir());
+            () -> { /* Implementar ação de cadastro */ });
 
         adicionarBotao(new JButton("Voltar"), 250, 225, 75, 30, this::fechar);
     }
