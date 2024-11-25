@@ -48,6 +48,7 @@ public abstract class MenuBase {
         Font fonte = new Font("Arial", Font.BOLD, tamanhoFonte);
         label.setFont(fonte);
         label.setForeground(Color.WHITE);
+        label.setBounds(x, y, largura, altura);
         painel.add(label);
     }
 
