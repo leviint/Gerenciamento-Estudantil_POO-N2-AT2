@@ -39,8 +39,8 @@ public class JanelaPrincipal{
         // Ação ao apertar os botões
         btnAluno.addActionListener(_ -> new MenuAluno(frame).exibir());
         btnProfessor.addActionListener(_ -> new MenuProfessor(frame).exibir());
-        btnCurso.addActionListener(_ -> MenuCurso.exibirMenu(frame));
-        btnRelatorio.addActionListener(_ -> MenuRelatorio.exibirMenu(frame));
+        btnCurso.addActionListener(_ -> new MenuCurso(frame).exibir());
+        btnRelatorio.addActionListener(_ -> new MenuRelatorio(frame).exibir());
         btnSair.addActionListener(_ -> System.exit(0));
 
 
