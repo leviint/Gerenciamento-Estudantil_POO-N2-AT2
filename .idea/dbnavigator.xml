@@ -45,6 +45,11 @@
         <condition column="id" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
+    <filter-actions connection-id="7d393304-dd9e-4bdb-88a3-0e366ba23424" dataset="gerenciamentoestudantil.pessoa" active-filter-id="">
+      <filter id="265cc1f2-08d1-4233-95f4-a23b119a3c97" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />

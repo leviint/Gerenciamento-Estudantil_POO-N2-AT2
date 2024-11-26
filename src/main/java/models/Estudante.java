@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Estudante extends Pessoa {
     private String matricula;
-    private List<Curso> cursos;
+    private List<Curso> cursos = new ArrayList<>();
 
     public void exibirDados() {
         System.out.println("Nome do estudante: " + (getNome() !=null ? getNome() : "Sem registro"));
@@ -24,9 +24,11 @@ public class Estudante extends Pessoa {
     public List<Curso> getCursos() {
         return cursos;
     }
+
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
+
     // Método para adicionar curso à lista
     public void addCurso(Curso curso) {
         this.cursos.add(curso);
