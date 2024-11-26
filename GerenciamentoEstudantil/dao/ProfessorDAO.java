@@ -160,4 +160,72 @@ public class ProfessorDAO {
         }
         return professores;
     }
+
+
+    public Professor getProfessorById(int id) {
+        String sql = "SELECT * FROM Pessoa p INNER JOIN Professor prof ON p.id = prof.id WHERE p.id = ?";
+        Professor professor = null;
+
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        ResultSet rst = null;
+
+        try {
+            conn = ConnectionFactory.createConnectionToMySql();
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, id);
+
+            rst = pstm.executeQuery();
+
+            if (rst.next()) {
+                professor = new Professor();
+                professor.setId(rst.getInt("id"));
+                professor.setNome(rst.getString("nome"));
+                professor.setIdade(rst.getInt("idade"));
+                professor.setEspecialidade(rst.getString("especialidade"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rst != null) {
+                    rst.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return professor;
+    }
+
+    public List<String> obterRelatorioProfessores() {
+        List<String> relatorio = new ArrayList<>();
+        String sql = "SELECT p.nome, c.nome FROM professor p " +
+                "INNER JOIN curso_professor cp ON p.id = cp.professor_id " +
+                "INNER JOIN curso c ON cp.curso_id = c.id";
+
+        try (Connection conn = ConnectionFactory.createConnectionToMySql();
+                Statement stmt = conn.createStatement();
+
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                String nomeProfessor = rs.getString("p.nome");
+                String nomeCurso = rs.getString("c.nome");
+                relatorio.add(nomeProfessor + " leciona o curso: " + nomeCurso);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return relatorio;
+    }
 }
