@@ -6,7 +6,6 @@ import models.Estudante;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /*
 Essas classes desse package são responsáveis por adaptar nossas classes Javas para se moldarem
@@ -180,5 +179,28 @@ public class EstudanteDAO {
             }
         }
         return estudantes;
+    }
+
+    public List<String> obterRelatorioEstudantes() {
+        List<String> relatorio = new ArrayList<>();
+        String sql = "SELECT e.nome, c.nome FROM estudante e " +
+                "INNER JOIN curso_estudante ce ON e.id = ce.estudante_id " +
+                "INNER JOIN curso c ON ce.curso_id = c.id";
+
+        try (Connection conn = ConnectionFactory.createConnectionToMySql();
+                Statement stmt = conn.createStatement();
+
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                String nomeEstudante = rs.getString("e.nome");
+                String nomeCurso = rs.getString("c.nome");
+                relatorio.add(nomeEstudante + " está matriculado no curso: " + nomeCurso);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return relatorio;
     }
 }
