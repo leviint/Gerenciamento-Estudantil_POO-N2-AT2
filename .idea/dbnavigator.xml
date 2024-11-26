@@ -24,7 +24,9 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="7d393304-dd9e-4bdb-88a3-0e366ba23424" object-ref="schemas/gerenciamentoestudantil/tables/estudante" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="7d393304-dd9e-4bdb-88a3-0e366ba23424" />
@@ -35,7 +37,7 @@
         <condition column="id" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
-    <filter-actions connection-id="7d393304-dd9e-4bdb-88a3-0e366ba23424" dataset="gerenciamentoestudantil.estudante" active-filter-id="e4b544f6-98f0-4676-99a5-9badb340c059">
+    <filter-actions connection-id="7d393304-dd9e-4bdb-88a3-0e366ba23424" dataset="gerenciamentoestudantil.estudante" active-filter-id="">
       <filter id="e4b544f6-98f0-4676-99a5-9badb340c059" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="=" value="" active="true" />
       </filter>
