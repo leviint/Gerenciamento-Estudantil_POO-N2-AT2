@@ -45,7 +45,7 @@ public class AlunoUpdate extends MenuBase {
         // Botões
         adicionarBotao(new JButton("Consultar"), 25, 120, 200, 30, this::pesquisarEstudantes);
         adicionarBotao(new JButton("Atualizar"), 25, 160, 200, 30, this::atualizarEstudante);
-        adicionarBotao(new JButton("Voltar"), 250, 225, 75, 30, this::fechar);
+        adicionarBotao(new JButton("Voltar"), 250, 400, 75, 30, this::fechar);
 
         // Tabela para exibir resultados
         modeloTabela = new DefaultTableModel(new Object[]{"Nome", "Idade", "Matrícula"}, 0);

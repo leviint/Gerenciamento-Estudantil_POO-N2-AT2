@@ -5,6 +5,7 @@ import javax.swing.*;
 import menus.aluno.MenuAluno;
 import menus.curso.MenuCurso;
 import menus.professor.MenuProfessor;
+import menus.associacao.MenuAssociacao;
 import menus.relatorio.MenuRelatorio;
 
 public class JanelaPrincipal{
@@ -14,7 +15,7 @@ public class JanelaPrincipal{
         frame.setSize(400, 300);
 
         frame.setLocation(700, 350);
-        
+
         // Painel
         JPanel painel = new JPanel();
         painel.setLayout(null);
@@ -28,6 +29,7 @@ public class JanelaPrincipal{
         JButton btnAluno = new JButton("Gerenciar Alunos");
         JButton btnProfessor = new JButton("Gerenciar Professores");
         JButton btnCurso = new JButton("Gerenciar Cursos");
+        JButton btnAssociacao = new JButton("Gerenciar Associações");
         JButton btnRelatorio = new JButton("Gerar Relatório");
         JButton btnSair = new JButton("Sair");
 
@@ -41,17 +43,18 @@ public class JanelaPrincipal{
         btnProfessor.addActionListener(_ -> new MenuProfessor(frame).exibir());
         btnCurso.addActionListener(_ -> new MenuCurso(frame).exibir());
         btnRelatorio.addActionListener(_ -> new MenuRelatorio(frame).exibir());
+        btnAssociacao.addActionListener(_ -> new MenuAssociacao(frame).exibir());
         btnSair.addActionListener(_ -> System.exit(0));
-
 
         // Posição dos botões - x, y, largura, altura
         label.setBounds(25, 0, 300, 30);
-        label2.setBounds(25, 25, 175, 30);
-        btnAluno.setBounds(25, 50, 175, 30);
-        btnProfessor.setBounds(25, 100, 175, 30);
+        label2.setBounds(25, 35, 175, 30);
+        btnAluno.setBounds(25, 70, 175, 30);
+        btnProfessor.setBounds(25, 110, 175, 30);
         btnCurso.setBounds(25, 150, 175, 30);
-        btnRelatorio.setBounds(25, 200, 175, 30);
-        btnSair.setBounds(250, 225, 75, 30);
+        btnAssociacao.setBounds(25, 190, 175, 30); // Distância aumentada
+        btnRelatorio.setBounds(25, 230, 175, 30);  // Distância aumentada
+        btnSair.setBounds(250, 230, 75, 30);        // Distância aumentada
 
         // Adicionar os botões no menu
         painel.add(label);
@@ -60,6 +63,7 @@ public class JanelaPrincipal{
         painel.add(btnProfessor);
         painel.add(btnCurso);
         painel.add(btnRelatorio);
+        painel.add(btnAssociacao);
         painel.add(btnSair);
 
         frame.add(painel);
@@ -67,4 +71,3 @@ public class JanelaPrincipal{
         frame.setResizable(false);
     }
 }
-

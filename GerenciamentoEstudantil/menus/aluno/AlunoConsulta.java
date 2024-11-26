@@ -33,7 +33,7 @@ public class AlunoConsulta extends MenuBase {
 
         // Botões
         adicionarBotao(new JButton("Consultar"), 25, 120, 200, 30, this::pesquisarEstudantes);
-        adicionarBotao(new JButton("Voltar"), 250, 225, 75, 30, this::fechar);
+        adicionarBotao(new JButton("Voltar"), 250, 120, 75, 30, this::fechar);
 
         // Tabela para exibir resultados
         modeloTabela = new DefaultTableModel(new Object[]{"Nome", "Idade", "Matrícula"}, 0);
