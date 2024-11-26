@@ -6,14 +6,22 @@ import java.sql.*;
 
 public class AssociarEstudanteDAO {
 
-    // Método para associar um estudante a um curso
     public boolean adicionarEstudanteNoCurso(int estudanteId, int cursoId) {
         String sql = "INSERT INTO Matriculas (estudante_id, curso_id) VALUES (?, ?)";
-        try (Connection conn = ConnectionFactory.createConnectionToMySql();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, estudanteId);
-            stmt.setInt(2, cursoId);
-            int rowsAffected = stmt.executeUpdate();
+        // Cria um objeto do tipo ConnectionFactory inicialmente como nulo
+        Connection conn = null;
+        // Cria um objeto do tipo PreparedStatement inicialmente como nulos
+        PreparedStatement associarEstudante = null;
+
+        try {
+            // Estabelece conexão com o banco de dados
+            conn = ConnectionFactory.createConnectionToMySql();
+            // Prepara a query SQL
+            associarEstudante = conn.prepareStatement(sql);
+
+            associarEstudante.setInt(1, estudanteId);
+            associarEstudante.setInt(2, cursoId);
+            int rowsAffected = associarEstudante.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -24,14 +32,21 @@ public class AssociarEstudanteDAO {
         }
     }
 
-    // Método para remover um estudante de um curso
     public boolean removerEstudanteDoCurso(int estudanteId, int cursoId) {
         String sql = "DELETE FROM Matriculas WHERE estudante_id = ? AND curso_id = ?";
-        try (Connection conn = ConnectionFactory.createConnectionToMySql();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, estudanteId);
-            stmt.setInt(2, cursoId);
-            int rowsAffected = stmt.executeUpdate();
+        // Cria um objeto do tipo ConnectionFactory inicialmente como nulo
+        Connection conn = null;
+        // Cria um objeto do tipo PreparedStatement inicialmente como nulos
+        PreparedStatement associarEstudante = null;
+
+        try {
+            // Estabelece conexão com o banco de dados
+            conn = ConnectionFactory.createConnectionToMySql();
+            // Prepara a query SQL
+            associarEstudante = conn.prepareStatement(sql);
+            associarEstudante.setInt(1, estudanteId);
+            associarEstudante.setInt(2, cursoId);
+            int rowsAffected = associarEstudante.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,14 +57,21 @@ public class AssociarEstudanteDAO {
         }
     }
 
-    // Método para verificar se um estudante já está matriculado no curso
     public boolean verificarMatricula(int estudanteId, int cursoId) {
         String sql = "SELECT * FROM Matriculas WHERE estudante_id = ? AND curso_id = ?";
-        try (Connection conn = ConnectionFactory.createConnectionToMySql();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, estudanteId);
-            stmt.setInt(2, cursoId);
-            ResultSet rs = stmt.executeQuery();
+        // Cria um objeto do tipo ConnectionFactory inicialmente como nulo
+        Connection conn = null;
+        // Cria um objeto do tipo PreparedStatement inicialmente como nulos
+        PreparedStatement associarEstudante = null;
+
+        try {
+            // Estabelece conexão com o banco de dados
+            conn = ConnectionFactory.createConnectionToMySql();
+            // Prepara a query SQL
+            associarEstudante = conn.prepareStatement(sql);
+            associarEstudante.setInt(1, estudanteId);
+            associarEstudante.setInt(2, cursoId);
+            ResultSet rs = associarEstudante.executeQuery();
             return rs.next();  // Se houver resultado, significa que a matrícula existe
         } catch (SQLException e) {
             e.printStackTrace();

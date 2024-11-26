@@ -6,14 +6,23 @@ import java.sql.*;
 
 public class AssociarProfessorDAO {
 
-    // Método para associar um professor a um curso
     public boolean associarProfessor(int professorId, int cursoId) {
         String sql = "UPDATE Curso SET professor_id = ? WHERE id = ?";
-        try (Connection conn = ConnectionFactory.createConnectionToMySql();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, professorId);
-            stmt.setInt(2, cursoId);
-            int rowsAffected = stmt.executeUpdate();
+
+        // Cria um objeto do tipo ConnectionFactory inicialmente como nulo
+        Connection conn = null;
+        // Cria um objeto do tipo PreparedStatement inicialmente como nulos
+        PreparedStatement associarProfessor = null;
+
+        try {
+            // Estabelece conexão com o banco de dados
+            conn = ConnectionFactory.createConnectionToMySql();
+            // Prepara a query SQL
+            associarProfessor = conn.prepareStatement(sql);
+
+            associarProfessor.setInt(1, professorId);
+            associarProfessor.setInt(2, cursoId);
+            int rowsAffected = associarProfessor.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -24,13 +33,21 @@ public class AssociarProfessorDAO {
         }
     }
 
-    // Método para remover a associação do professor com o curso
     public boolean removerProfessor(int cursoId) {
         String sql = "UPDATE Curso SET professor_id = NULL WHERE id = ?";
-        try (Connection conn = ConnectionFactory.createConnectionToMySql();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, cursoId);
-            int rowsAffected = stmt.executeUpdate();
+        // Cria um objeto do tipo ConnectionFactory inicialmente como nulo
+        Connection conn = null;
+        // Cria um objeto do tipo PreparedStatement inicialmente como nulos
+        PreparedStatement associarProfessor = null;
+
+        try {
+            // Estabelece conexão com o banco de dados
+            conn = ConnectionFactory.createConnectionToMySql();
+            // Prepara a query SQL
+            associarProfessor = conn.prepareStatement(sql);
+
+            associarProfessor.setInt(1, cursoId);
+            int rowsAffected = associarProfessor.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,14 +57,21 @@ public class AssociarProfessorDAO {
             return false;
         }
     }
-
-    // Método para verificar se o curso já tem um professor associado
+    
     public boolean verificarAssociacaoProfessor(int cursoId) {
         String sql = "SELECT professor_id FROM Curso WHERE id = ?";
-        try (Connection conn = ConnectionFactory.createConnectionToMySql();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, cursoId);
-            ResultSet rs = stmt.executeQuery();
+        // Cria um objeto do tipo ConnectionFactory inicialmente como nulo
+        Connection conn = null;
+        // Cria um objeto do tipo PreparedStatement inicialmente como nulos
+        PreparedStatement associarProfessor = null;
+
+        try {
+            // Estabelece conexão com o banco de dados
+            conn = ConnectionFactory.createConnectionToMySql();
+            // Prepara a query SQL
+            associarProfessor = conn.prepareStatement(sql);
+
+            ResultSet rs = associarProfessor.executeQuery();
             return rs.next() && rs.getInt("professor_id") != 0;
         } catch (SQLException e) {
             e.printStackTrace();

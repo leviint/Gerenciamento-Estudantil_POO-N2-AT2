@@ -28,7 +28,14 @@ public class CursoDAO {
             pstmCurso.setString(1, curso.getNomeCurso());
             pstmCurso.setInt(2, curso.getCargaHoraria());
 
-            pstmCurso.execute(); // Executa a String sqlCurso no banco de dados
+            // Verifica se o professor está associado ao curso
+            if (curso.getProfessorResponsavel() != null) {
+                pstmCurso.setInt(3, curso.getProfessorResponsavel().getId());  // Define o ID do professor, se existir
+            } else {
+                pstmCurso.setNull(3, java.sql.Types.INTEGER);  // Caso não tenha professor, insere um valor NULL
+            }
+
+            pstmCurso.executeUpdate(); // Executa a String sqlCurso no banco de dados
 
             ResultSet generatedId = pstmCurso.getGeneratedKeys(); // Pega a chave primária gerada pelo Banco de dados e armazena na variável generatedId
 
