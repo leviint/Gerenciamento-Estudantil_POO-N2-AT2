@@ -10,35 +10,35 @@ import java.util.List;
 
 public class Principal {
     public static void main(String[] args) {
-        // Criação de objetos de Curso, Estudante e Professor
-        Curso cursoMatematica = new Curso();
-        cursoMatematica.setNomeCurso("wwww");
-        cursoMatematica.setCargaHoraria(60); // Exemplo: 60 horas de carga horária
-
-        Estudante estudanteMiguel = new Estudante();
-        estudanteMiguel.setNome("ww");
-        estudanteMiguel.setIdade(20);
-        estudanteMiguel.setMatricula("www");
-
-        Professor professorCarlos = new Professor();
-        professorCarlos.setNome("wwwww");
-        professorCarlos.setIdade(40);
-        professorCarlos.setEspecialidade("Matemáticaaa");
-
-        // Cadastro no banco de dados
-        CursoDAO cursoDAO = new CursoDAO();
-        EstudanteDAO estudanteDAO = new EstudanteDAO();
-        ProfessorDAO professorDAO = new ProfessorDAO();
-        AssociarEstudanteDAO a1 = new AssociarEstudanteDAO();
-        AssociarProfessorDAO a2 = new AssociarProfessorDAO();
-
-        cursoDAO.cadastrarCurso(cursoMatematica);
-        estudanteDAO.save(estudanteMiguel);
-        professorDAO.save(professorCarlos);
-
-        // Associação do estudante e professor ao curso
-        a1.associarEstudante(estudanteMiguel.getId(), cursoMatematica.getId());
-        a2.associarProfessor(professorCarlos.getId(), cursoMatematica.getId());
+//        // Criação de objetos de Curso, Estudante e Professor
+//        Curso cursoMatematica = new Curso();
+//        cursoMatematica.setNomeCurso("wwww");
+//        cursoMatematica.setCargaHoraria(60); // Exemplo: 60 horas de carga horária
+//
+//        Estudante estudanteMiguel = new Estudante();
+//        estudanteMiguel.setNome("ww");
+//        estudanteMiguel.setIdade(20);
+//        estudanteMiguel.setMatricula("www");
+//
+//        Professor professorCarlos = new Professor();
+//        professorCarlos.setNome("wwwww");
+//        professorCarlos.setIdade(40);
+//        professorCarlos.setEspecialidade("Matemáticaaa");
+//
+//        // Cadastro no banco de dados
+//        CursoDAO cursoDAO = new CursoDAO();
+//        EstudanteDAO estudanteDAO = new EstudanteDAO();
+//        ProfessorDAO professorDAO = new ProfessorDAO();
+//        AssociarEstudanteDAO a1 = new AssociarEstudanteDAO();
+//        AssociarProfessorDAO a2 = new AssociarProfessorDAO();
+//
+//        cursoDAO.cadastrarCurso(cursoMatematica);
+//        estudanteDAO.save(estudanteMiguel);
+//        professorDAO.save(professorCarlos);
+//
+//        // Associação do estudante e professor ao curso
+//        a1.associarEstudante(estudanteMiguel.getId(), cursoMatematica.getId());
+//        a2.associarProfessor(professorCarlos.getId(), cursoMatematica.getId());
 
         RelatorioDAO relatorioDAO = new RelatorioDAO();
 
@@ -48,7 +48,7 @@ public class Principal {
         for (Estudante e : estudantes) {
             System.out.println("Estudante: " + e.getNome() + " | Idade: " + e.getIdade() + " | Matrícula: " + e.getMatricula());
             List<Curso> cursos = e.getCursos();
-            if (cursos != null) {
+            if (cursos != null && !cursos.isEmpty()) {
                 for (Curso c : cursos) {
                     System.out.println("\tCurso: " + c.getNomeCurso() + " | Carga Horária: " + c.getCargaHoraria());
                 }
