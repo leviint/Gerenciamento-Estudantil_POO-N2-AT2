@@ -69,32 +69,34 @@ public class EstudanteDAO {
         }
     }
 
-    public void deleteByID(int id) {
-        String sqlPessoa = "DELETE FROM pessoa WHERE id = ?";
-        String sqlEstudante = "DELETE FROM estudante where id = ?";
+    public void deleteByName(String nome) {
+        String sqlPessoa = "DELETE FROM pessoa WHERE nome = ?";
+        String sqlEstudante = "DELETE FROM estudante WHERE id IN (SELECT id FROM pessoa WHERE nome = ?)";
 
         Connection conn = null;
         PreparedStatement pstmPessoa = null;
         PreparedStatement pstmEstudante = null;
 
         try {
+            // Criação da conexão
             conn = ConnectionFactory.createConnectionToMySql();
 
-            pstmEstudante = (PreparedStatement) conn.prepareStatement(sqlEstudante);
-
-            pstmEstudante.setInt(1, id);
-
+            // Deleta da tabela estudante
+            pstmEstudante = conn.prepareStatement(sqlEstudante);
+            pstmEstudante.setString(1, nome);
             pstmEstudante.execute();
 
+            // Deleta da tabela pessoa
             pstmPessoa = conn.prepareStatement(sqlPessoa);
-
-            pstmPessoa.setInt(1, id);
-
+            pstmPessoa.setString(1, nome);
             pstmPessoa.execute();
+
+            System.out.println("Estudante deletado com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
+                // Fecha os recursos
                 if (pstmEstudante != null) {
                     pstmEstudante.close();
                 }
@@ -107,64 +109,29 @@ public class EstudanteDAO {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("Estudante deletado com sucesso!");
         }
     }
 
-    public void update(Estudante estudante) {
-        String sqlPessoa = "UPDATE pessoa SET nome = ?, idade = ? WHERE id = ?";
-        String sqlEstudante = "UPDATE estudante SET matricula = ? WHERE id = ?";
+    public void update(Estudante estudante) throws SQLException {
+        String sql = "UPDATE pessoa INNER JOIN estudante ON pessoa.id = estudante.id " +
+                "SET pessoa.idade = ?, estudante.matricula = ? " +
+                "WHERE pessoa.nome = ?";
 
-        Connection conn = null;
-        PreparedStatement pstmPessoa = null;
-        PreparedStatement pstmEstudante = null;
+        try (Connection conn = ConnectionFactory.createConnectionToMySql();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try {
-            conn = ConnectionFactory.createConnectionToMySql();
+            stmt.setInt(1, estudante.getIdade());
+            stmt.setString(2, estudante.getMatricula());
+            stmt.setString(3, estudante.getNome()); // Nome usado para localizar o registro
+            int linhasAfetadas = stmt.executeUpdate();
 
-            conn.setAutoCommit(false);
-
-            pstmPessoa = (PreparedStatement) conn.prepareStatement(sqlPessoa);
-
-            pstmPessoa.setString(1, estudante.getNome());
-            pstmPessoa.setInt(2, estudante.getIdade());
-            pstmPessoa.setInt(3, estudante.getId());
-
-            pstmPessoa.executeUpdate();
-
-            pstmEstudante = (PreparedStatement) conn.prepareStatement(sqlEstudante);
-
-            pstmEstudante.setString(1, estudante.getMatricula());
-            pstmEstudante.setInt(2, estudante.getId());
-
-            pstmEstudante.executeUpdate();
-
-            conn.commit();
-
-            System.out.println("Estudante atualizado com sucesso!");
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Nenhum registro foi atualizado. Verifique os dados fornecidos.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar estudante: " + e.getMessage(), e);
         } catch (Exception e) {
-            try {
-                if (conn != null) {
-                    conn.rollback();
-                }
-            } catch (SQLException rollbackEx) {
-                rollbackEx.printStackTrace();
-            }
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmPessoa != null) {
-                    pstmPessoa.close();
-                }
-                if (pstmEstudante != null) {
-                    pstmEstudante.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            throw new RuntimeException(e);
         }
     }
 
