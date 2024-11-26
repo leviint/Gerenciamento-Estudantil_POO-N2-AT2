@@ -9,7 +9,7 @@ public abstract class MenuBase {
 
     public MenuBase(String titulo, JFrame janelaPrincipal) {
         frame = new JFrame(titulo);
-        frame.setSize(400, 300);
+        frame.setSize(500, 500);
         Point localizacao = janelaPrincipal.getLocation();
         frame.setLocation(localizacao.x, localizacao.y);
         frame.setResizable(false);

@@ -1,7 +1,6 @@
 package dao;
 
 import factory.ConnectionFactory;
-import models.Estudante;
 import models.Professor;
 
 import java.sql.*;
@@ -49,32 +48,34 @@ public class ProfessorDAO {
         }
     }
 
-    public void deleteByID(int id) {
-        String sqlPessoa = "DELETE FROM pessoa WHERE id = ?";
-        String sqlProfessor = "DELETE FROM professor where id = ?";
+    public void deleteByName(String nome) {
+        String sqlPessoa = "DELETE FROM pessoa WHERE nome = ?";
+        String sqlProfessor = "DELETE FROM professor WHERE id IN (SELECT id FROM pessoa WHERE nome = ?)";
 
         Connection conn = null;
         PreparedStatement pstmPessoa = null;
         PreparedStatement pstmProfessor = null;
 
         try {
+            // Criação da conexão
             conn = ConnectionFactory.createConnectionToMySql();
 
-            pstmProfessor = (PreparedStatement) conn.prepareStatement(sqlProfessor);
-
-            pstmProfessor.setInt(1, id);
-
+            // Deleta da tabela estudante
+            pstmProfessor = conn.prepareStatement(sqlProfessor);
+            pstmProfessor.setString(1, nome);
             pstmProfessor.execute();
 
+            // Deleta da tabela pessoa
             pstmPessoa = conn.prepareStatement(sqlPessoa);
-
-            pstmPessoa.setInt(1, id);
-
+            pstmPessoa.setString(1, nome);
             pstmPessoa.execute();
+
+            System.out.println("Professor deletado com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
+                // Fecha os recursos
                 if (pstmProfessor != null) {
                     pstmProfessor.close();
                 }
@@ -87,64 +88,29 @@ public class ProfessorDAO {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("Professor deletado com sucesso!");
         }
     }
 
     public void update(Professor professor) {
-        String sqlPessoa = "UPDATE pessoa SET nome = ?, idade = ? WHERE id = ?";
-        String sqlProfessor = "UPDATE professor SET especialidade = ? WHERE id = ?";
+        String sql = "UPDATE pessoa INNER JOIN professor ON pessoa.id = professor.id " +
+                "SET pessoa.idade = ?, professor.especialidade = ? " +
+                "WHERE pessoa.nome = ?";
 
-        Connection conn = null;
-        PreparedStatement pstmPessoa = null;
-        PreparedStatement pstmProfessor = null;
+        try (Connection conn = ConnectionFactory.createConnectionToMySql();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try {
-            conn = ConnectionFactory.createConnectionToMySql();
+            stmt.setInt(1, professor.getIdade());
+            stmt.setString(2, professor.getEspecialidade());
+            stmt.setString(3, professor.getNome()); // Nome usado para localizar o registro
+            int linhasAfetadas = stmt.executeUpdate();
 
-            conn.setAutoCommit(false);
-
-            pstmPessoa = (PreparedStatement) conn.prepareStatement(sqlPessoa);
-
-            pstmPessoa.setString(1, professor.getNome());
-            pstmPessoa.setInt(2, professor.getIdade());
-            pstmPessoa.setInt(3, professor.getId());
-
-            pstmPessoa.executeUpdate();
-
-            pstmProfessor = (PreparedStatement) conn.prepareStatement(sqlProfessor);
-
-            pstmProfessor.setString(1, professor.getEspecialidade());
-            pstmProfessor.setInt(2, professor.getId());
-
-            pstmProfessor.executeUpdate();
-
-            conn.commit();
-
-            System.out.println("Professor atualizado com sucesso!");
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Nenhum registro foi atualizado. Verifique os dados fornecidos.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar professor: " + e.getMessage(), e);
         } catch (Exception e) {
-            try {
-                if (conn != null) {
-                    conn.rollback();
-                }
-            } catch (SQLException rollbackEx) {
-                rollbackEx.printStackTrace();
-            }
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmPessoa != null) {
-                    pstmPessoa.close();
-                }
-                if (pstmProfessor != null) {
-                    pstmProfessor.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            throw new RuntimeException(e);
         }
     }
 
@@ -169,7 +135,7 @@ public class ProfessorDAO {
             while (rst.next()) {
                 Professor pf = new Professor();
 
-                pf.setEspecialidade(rst.getString("matricula"));
+                pf.setEspecialidade(rst.getString("especialidade"));
                 pf.setNome(rst.getString("nome"));
                 pf.setIdade(rst.getInt("idade"));
 
