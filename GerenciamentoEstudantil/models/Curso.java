@@ -1,13 +1,28 @@
 package models;
+
+import dao.ProfessorDAO;
+import models.Professor;
+
 public class Curso {
+
+    private int id;
     private String nomeCurso;
     private int cargaHoraria;
-    private Professor professor;
+    private Professor professorResponsavel;
 
-    public Curso(String nomeCurso, int cargaHoraria, Professor professor) {
-        this.nomeCurso = nomeCurso;
-        this.cargaHoraria = cargaHoraria;
-        this.professor = professor;
+    public void exibirDados() {
+        System.out.println("ID do Curso: " + (getId() > 0 ? getId() : "Sem registro"));
+        System.out.println("Nome do Curso: " + (getNomeCurso() !=null ? getNomeCurso() : "Sem registro"));
+        System.out.println("Carga Horária: " + getCargaHoraria()); // Caso não tenha idade, ele não irá mostrar
+        System.out.println("Professor responsável: " + (getProfessorResponsavel() != null ? getProfessorResponsavel().getNome() : "Sem registro"));
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNomeCurso() {
@@ -26,11 +41,11 @@ public class Curso {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public Professor getProfessorResponsavel() {
+        return professorResponsavel;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setProfessorResponsavel(Professor professorResponsavel) {
+        this.professorResponsavel = professorResponsavel;
     }
 }

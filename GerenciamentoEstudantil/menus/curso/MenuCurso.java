@@ -12,16 +12,27 @@ public class MenuCurso extends MenuBase {
 
     @Override
     protected void construirMenu() {
-        JLabel label = new JLabel("Gerenciamento Estudantil");
-        JLabel subtitulo = new JLabel("Menu Professor");
+        JLabel label = new JLabel("Gerenciamento de Cursos");
+        JLabel subtitulo = new JLabel("Escolha uma opção abaixo");
         configurarEstilo(label, subtitulo);
 
-        adicionarBotao(new JButton("Cadastrar Curso"), 25, 50, 200, 30, 
-            () -> new CursoCadastro(frame).exibir());
+        // Botão para cadastrar curso
+        adicionarBotao(new JButton("Cadastrar Curso"), 25, 50, 200, 30,
+                () -> new CursoCadastro(frame).exibir());
 
-        adicionarBotao(new JButton("Consultar Curso"), 25, 100, 200, 30, 
-            () -> new CursoConsulta(frame).exibir());
+        // Botão para consultar cursos
+        adicionarBotao(new JButton("Consultar Cursos"), 25, 100, 200, 30,
+                () -> new CursoConsulta(frame).exibir());
 
-        adicionarBotao(new JButton("Voltar"), 250, 225, 75, 30, this::fechar);
+        // Botão para atualizar cursos
+        adicionarBotao(new JButton("Atualizar Curso"), 25, 150, 200, 30,
+                () -> new CursoUpdate(frame).exibir());
+
+        // Botão para excluir cursos
+        adicionarBotao(new JButton("Excluir Curso"), 25, 200, 200, 30,
+                () -> new CursoDelete(frame).exibir());
+
+        // Botão para voltar ao menu principal
+        adicionarBotao(new JButton("Voltar"), 250, 250, 100, 30, this::fechar);
     }
 }

@@ -1,32 +1,43 @@
 package menus.curso;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import dao.CursoDAO;
 import menus.MenuBase;
+import models.Curso;
+import java.util.List;
 
-public class CursoConsulta extends MenuBase{
-    public CursoConsulta(JFrame MenuCurso){
-        super("Consultar Curso", MenuCurso);
+public class CursoConsulta extends MenuBase {
+    private JTable tabelaResultados;
+    private DefaultTableModel modeloTabela;
+    private CursoDAO cursoDAO;
+
+    public CursoConsulta(JFrame menuPrincipal) {
+        super("Consultar Cursos", menuPrincipal);
+        cursoDAO = new CursoDAO();
         construirMenu();
     }
 
     @Override
-    protected void construirMenu(){
-        JLabel label = new JLabel("Gerenciamento Estudantil");
-        JLabel subtitulo = new JLabel("Consultar Curso");
+    protected void construirMenu() {
+        JLabel label = new JLabel("Consulta de Cursos");
+        JLabel subtitulo = new JLabel("Lista de Cursos Cadastrados");
         configurarEstilo(label, subtitulo);
 
-        adicionarTexto("Insira o nome:", 25, 50, 200, 30, 14);
-        adicionarCampo(new JTextField("Insira o nome..."), 25, 80, 200, 30, null);
+        modeloTabela = new DefaultTableModel(new Object[]{"ID", "Nome", "Carga HorÃ¡ria"}, 0);
+        tabelaResultados = new JTable(modeloTabela);
+        JScrollPane scrollPane = new JScrollPane(tabelaResultados);
+        scrollPane.setBounds(25, 50, 400, 300);
+        painel.add(scrollPane);
 
-        adicionarBotao(new JButton("Consultar"), 25, 120, 200, 30,
-            () -> {});
+        adicionarBotao(new JButton("Voltar"), 350, 360, 100, 30, this::fechar);
 
-        adicionarBotao(new JButton("Editar"), 250, 150, 95, 30, 
-            () -> {});
+        carregarCursos();
+    }
 
-        adicionarBotao(new JButton("Excluir"), 250, 190, 95, 30, 
-            () -> {});
-
-        adicionarBotao(new JButton("Voltar"), 250, 225, 75, 30, this::fechar);
+    private void carregarCursos() {
+        modeloTabela.setRowCount(0);
+        List<Curso> cursos = cursoDAO.getCursos();
+        cursos.forEach(curso -> modeloTabela.addRow(new Object[]{curso.getId(), curso.getNomeCurso(), curso.getCargaHoraria()}));
     }
 }
